@@ -1,12 +1,12 @@
 import { createContext, useMemo, useReducer } from "react";
 import { rootReducers } from "./rootReducers";
 
-const initialState = {};
+const initialState = { formReducers: {} };
 
 export const Context = createContext(initialState);
 
 export const Provider = ({ children }) => {
-  const { state, dispatch } = useReducer(rootReducers, initialState);
+  const [state, dispatch] = useReducer(rootReducers, initialState);
 
   const contextValue = useMemo(() => {
     return { state, dispatch };
