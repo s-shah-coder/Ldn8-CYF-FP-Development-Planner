@@ -1,0 +1,19 @@
+{
+  "name": "ldn8-cyf-fp-development-planner",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "client": "cd client && npm i && npm start",
+    "server": "cd server && npm i && npm start",
+    "start": "npm i -g concurrently && concurrently \"npm run client\" \"npm run server\""
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com//s-shah-coder/Ldn8-CYF-FP-Development-Planner.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}
