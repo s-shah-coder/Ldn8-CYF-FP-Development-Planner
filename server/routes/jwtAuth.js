@@ -66,9 +66,16 @@ router.post("/login", async (req, res) => {
 
     const validPassword = bcrypt.compare(password, user.rows[0].password);
 
+    if (!validPassword) {
+      return res.status(401).json("credentials incorrect");
+    }
     console.log(validPassword);
 
     // 4. generate jwt token
+
+    const token = jwtGenerator(user.rows[0].id);
+
+    res.json({ token });
   } catch (err) {
     console.error(err.message);
     res.status(500).send("Server error");
