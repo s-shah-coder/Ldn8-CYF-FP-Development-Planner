@@ -1,50 +1,24 @@
-// 1. Testing Array of names (It's working!)
+const express = require("express");
+const app = express();
+const port = 4000;
+const cors = require("cors");
 
-// const express = require("express");
-// const app = express();
+//middleware
 
-// app.get("/api", (req, res) => {
-//   res.json({
-//     users: ["Lorenzo", "Barath", "Ali", "Douglas", "Helen", "Saf", "Test"],
-//   });
-// });
+app.use(express.json()); //req.body
+app.use(cors());
 
-// app.listen(5000, () => console.log("Server started on port 5000"));
+//ROUTES//
 
-//
-// 2 . Testing PostgreSQL with Postman
+//test
+app.get("/", (req, res) => {
+  res.send("Hello World!");
+});
 
-const express = require("express")
-const cors = require("cors")
-const pool = require("./database")
+//register route
 
-const app = express()
+app.use("/auth", require("./routes/jwtAuth"));
 
-app.use(express.json())
-app.use(cors())
-
-app.post("/addUser", (req, res) => {
-    const username = req.body["username"]
-    const password = req.body["password"]
-
-    console.log("Username:" + username)
-    console.log("Password:" + password)
-
-    const insertSTMT = `INSERT INTO users (username, password) VALUES ( '${username}', '${password}');`;
-
-    pool.query(insertSTMT).then((response) => {
-        console.log("Data Saved");
-        console.log(response);
-    })
-    .catch((err) => {
-        console.log(err);
-    })
-
-    console.log(req.body)
-    res.send("Response Received" + req.body)
-})
-
-app.listen(4000, () => console.log("Server on localhost:4000"))
-
-
-
+app.listen(port, () => {
+  console.log(`Server is running on port ${port}`);
+});
