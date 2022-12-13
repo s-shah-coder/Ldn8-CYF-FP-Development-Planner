@@ -8,7 +8,7 @@ router.post("/register", async (req, res) => {
   try {
     // 1. destructure the req.body (name, email, password)
     const { username, email, password } = req.body;
-
+    console.log(username);
     // 2. check if user exists (if user exists throw error)
     const user = await pool.query("SELECT * FROM users WHERE email= $1", [
       email,
@@ -17,9 +17,7 @@ router.post("/register", async (req, res) => {
       return res.status(401).send("User already exists");
     }
 
-    res.json(user.rows);
-
-    // 3. bcrypt the user password
+    // // 3. bcrypt the user password
 
     const saltRound = 10;
     const salt = await bcrypt.genSalt(saltRound);
@@ -33,12 +31,12 @@ router.post("/register", async (req, res) => {
       [username, email, bcryptPassword]
     );
 
-    res.json(newUser.rows[0]);
+    // res.json(newUser.rows[0]);
     // 5. generate jwt token
 
     const token = jwtGenerator(newUser.rows[0].id);
 
-    resjson({ token });
+    res.json({ token });
   } catch (err) {
     console.error(err.message);
     res.status(500).send("Server error");
