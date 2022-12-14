@@ -33,7 +33,6 @@ router.post("/register", validInfo, async (req, res) => {
       [username, email, bcryptPassword]
     );
 
-    // res.json(newUser.rows[0]);
     // 5. generate jwt token
 
     const token = jwtGenerator(newUser.rows[0].id);
@@ -82,6 +81,16 @@ router.post("/login", validInfo, async (req, res) => {
   }
 });
 
+router.get("/is-verify", authorization, async (req, res) => {
+  try {
+    res.json(true);
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send("Server error");
+  }
+});
+
+//verify the token every refresh
 router.get("/is-verify", authorization, async (req, res) => {
   try {
     res.json(true);
