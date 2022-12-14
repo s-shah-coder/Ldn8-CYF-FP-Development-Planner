@@ -10,14 +10,18 @@ app.use(cors());
 
 //ROUTES//
 
-//test
-app.get("/", (req, res) => {
-  res.send("Hello World!");
-});
+// //test
+// app.get("/", (req, res) => {
+//   res.send("Hello World!");
+// });
 
 //register route
 
 app.use("/auth", require("./routes/jwtAuth"));
+
+//dashboard route
+
+app.use("/dashboard", require("./routes/dashboard"));
 
 app.listen(port, () => {
   console.log(`Server is running on port ${port}`);
