@@ -1,4 +1,4 @@
-CREATE DATABASE dev_plan_login;
+CREATE DATABASE dev_planner;
 
 CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
 
