@@ -1,5 +1,5 @@
 import "./App.css";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Routes, Route, Navigate } from "react-router-dom";
 
 //components
@@ -14,9 +14,42 @@ function App() {
   const setAuth = (boolean) => {
     setIsAuthenticated(boolean);
   };
+
+  async function isAuth() {
+    try {
+      const response = await fetch("http://localhost:4000/auth/is-verify", {
+        method: "POST",
+        headers: { token: localStorage.token },
+      });
+
+      const parseRes = await response.json();
+
+      parseRes === true ? setIsAuthenticated(true) : setIsAuthenticated(false);
+      console.log(parseRes);
+    } catch (err) {
+      console.error(err.message);
+    }
+  }
+  useEffect(() => {
+    isAuth();
+  }, []);
   return (
     <>
       <Routes>
+        <Route
+          exact
+          path="/"
+          element={
+            !isAuthenticated ? (
+              <div>
+                <Home />
+              </div>
+            ) : (
+              <Navigate to="/dashboard" />
+            )
+          }
+        />
+
         <Route
           exact
           path="register"

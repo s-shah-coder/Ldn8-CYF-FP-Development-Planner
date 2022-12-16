@@ -20,7 +20,7 @@ function Register({ setAuth }) {
       const body = { email, password, username };
       const response = await fetch("http://localhost:4000/auth/register", {
         method: "POST",
-        headers: { "Content-TYpe": "application/json" },
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify(body),
       });
 
