@@ -3,23 +3,6 @@ import React, { useState, useEffect } from "react";
 function Dashboard({ setAuth }) {
   const [name, setName] = useState("");
 
-  // async function getName() {
-  //   try {
-  //     const response = await fetch("http://localhost:4000/dashboard/", {
-  //       method: "GET",
-  //       headers: { token: localStorage.token },
-  //     });
-
-  //     const parseRes = await response.json();
-
-  //     console.log(parseRes);
-
-  //     setName(parseRes[0].username);
-  //   } catch (err) {
-  //     console.error(err.message);
-  //   }
-  // }
-
   const getName = async () => {
     try {
       const res = await fetch("http://localhost:4000/dashboard/", {

@@ -1,7 +1,8 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 function Register({ setAuth }) {
+  const navigate = useNavigate();
   const [inputs, setInputs] = useState({
     email: "",
     password: "",
@@ -61,7 +62,12 @@ function Register({ setAuth }) {
             value={email}
             onChange={(e) => onChange(e)}
           />
-          <button>Submit</button>
+          {/* todo: write a function that sends activation link to user email */}
+          <button
+            onClick={() => navigate("/signup-confirmation", { replace: true })}
+          >
+            Submit
+          </button>
         </form>
         <Link to="/login">Login</Link>
       </main>

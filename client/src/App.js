@@ -7,7 +7,9 @@ import Home from "./components/Home";
 import Dashboard from "./components/Dashboard";
 import Login from "./components/Login";
 import Register from "./components/Register";
-
+import SignupConfirmation from "./components/SignupConfirmation";
+import NoMatch from "./components/NoMatch";
+import UserDetails from "./components/UserDetails";
 function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
 
@@ -37,19 +39,9 @@ function App() {
     <>
       <Routes>
         <Route
-          exact
           path="/"
-          element={
-            !isAuthenticated ? (
-              <div>
-                <Home />
-              </div>
-            ) : (
-              <Navigate to="/dashboard" />
-            )
-          }
+          element={!isAuthenticated ? <Home /> : <Navigate to="/dashboard" />}
         />
-
         <Route
           exact
           path="register"
@@ -83,6 +75,11 @@ function App() {
             )
           }
         />
+        <Route path="/signup-confirmation" element={<SignupConfirmation />} />
+        <Route path="*" element={<NoMatch />} />
+        <Route path="users" element={<Dashboard />}>
+          <Route path=":userId" element={<UserDetails />} />
+        </Route>
       </Routes>
     </>
   );
