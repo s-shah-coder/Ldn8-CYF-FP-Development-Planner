@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
+
 function Login({ setAuth }) {
   const [inputs, setInputs] = useState({
     email: "",
@@ -23,11 +24,14 @@ function Login({ setAuth }) {
       });
 
       const parseRes = await response.json();
-      console.log(parseRes);
+      // console.log(parseRes);
+      if (parseRes.token) {
+        localStorage.setItem("token", parseRes.token);
 
-      localStorage.setItem("token", parseRes.token);
-
-      setAuth(true);
+        setAuth(true);
+      } else {
+        setAuth(false);
+      }
     } catch (err) {
       console.error(err.message);
     }
@@ -51,7 +55,7 @@ function Login({ setAuth }) {
             value={password}
             onChange={(e) => onChange(e)}
           />
-          <button onClick={() => setAuth(true)}>login</button>
+          <button>login</button>
         </form>
         <Link to="/register">Signup</Link>
       </main>

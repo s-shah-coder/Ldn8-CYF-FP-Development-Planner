@@ -1,5 +1,5 @@
 import "./App.css";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Routes, Route, Navigate } from "react-router-dom";
 
 //components
@@ -7,6 +7,9 @@ import Home from "./components/Home";
 import Dashboard from "./components/Dashboard";
 import Login from "./components/Login";
 import Register from "./components/Register";
+import SignupConfirmation from "./components/SignupConfirmation";
+import NoMatch from "./components/NoMatch";
+import UserDetails from "./components/UserDetails";
 
 function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -14,11 +17,34 @@ function App() {
   const setAuth = (boolean) => {
     setIsAuthenticated(boolean);
   };
+
+  async function isAuth() {
+    try {
+      const response = await fetch("http://localhost:4000/auth/is-verify", {
+        method: "GET",
+        headers: { token: localStorage.token },
+      });
+
+      const parseRes = await response.json();
+
+      parseRes === true ? setIsAuthenticated(true) : setIsAuthenticated(false);
+      console.log(parseRes);
+    } catch (err) {
+      console.error(err.message);
+    }
+  }
+
+  useEffect(() => {
+    isAuth();
+  }, []);
   return (
     <>
       <Routes>
         <Route
-          exact
+          path="/"
+          element={!isAuthenticated ? <Home /> : <Navigate to="/dashboard" />}
+        />
+        <Route
           path="register"
           element={
             !isAuthenticated ? (
@@ -50,6 +76,11 @@ function App() {
             )
           }
         />
+        <Route path="/signup-confirmation" element={<SignupConfirmation />} />
+        <Route path="*" element={<NoMatch />} />
+        <Route path="users" element={<Dashboard />}>
+          <Route path=":userId" element={<UserDetails />} />
+        </Route>
       </Routes>
     </>
   );
