@@ -10,10 +10,10 @@ app.use(cors());
 
 //ROUTES//
 
-// //test
-// app.get("/", (req, res) => {
-//   res.send("Hello World!");
-// });
+//test
+app.get("/", (req, res) => {
+  res.send("Hello World!");
+});
 
 //register route
 

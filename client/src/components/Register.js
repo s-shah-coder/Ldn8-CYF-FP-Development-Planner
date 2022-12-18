@@ -1,15 +1,16 @@
 import React, { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 function Register({ setAuth }) {
-  const navigate = useNavigate();
   const [inputs, setInputs] = useState({
+    fname: "",
+    lname: "",
+    username: "",
     email: "",
     password: "",
-    username: "",
   });
 
-  const { email, password, username } = inputs;
+  const { fname, lname, username, email, password } = inputs;
 
   const onChange = (e) => {
     setInputs({ ...inputs, [e.target.name]: e.target.value });
@@ -18,7 +19,7 @@ function Register({ setAuth }) {
   const onSubmitForm = async (e) => {
     e.preventDefault();
     try {
-      const body = { email, password, username };
+      const body = { fname, lname, username, email, password };
       const response = await fetch("http://localhost:4000/auth/register", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -39,13 +40,29 @@ function Register({ setAuth }) {
       <main>
         <form onSubmit={onSubmitForm}>
           <h1>Signup</h1>
-
+          <label>First Name</label>
+          <input
+            type="text"
+            name="fname"
+            value={fname}
+            onChange={(e) => onChange(e)}
+            required
+          />
+          <label>Last Name</label>
+          <input
+            type="text"
+            name="lname"
+            value={lname}
+            onChange={(e) => onChange(e)}
+            required
+          />
           <label>Username</label>
           <input
             type="text"
             name="username"
             value={username}
             onChange={(e) => onChange(e)}
+            required
           />
           <label>Password</label>
           <input
@@ -53,6 +70,7 @@ function Register({ setAuth }) {
             name="password"
             value={password}
             onChange={(e) => onChange(e)}
+            required
           />
 
           <label>Email</label>
@@ -61,13 +79,10 @@ function Register({ setAuth }) {
             name="email"
             value={email}
             onChange={(e) => onChange(e)}
+            required
           />
-          {/* todo: write a function that sends activation link to user email */}
-          <button
-            onClick={() => navigate("/signup-confirmation", { replace: true })}
-          >
-            Submit
-          </button>
+
+          <button>Submit</button>
         </form>
         <Link to="/login">Login</Link>
       </main>

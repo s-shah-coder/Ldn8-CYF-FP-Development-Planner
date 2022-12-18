@@ -55,7 +55,7 @@ function Login({ setAuth }) {
             value={password}
             onChange={(e) => onChange(e)}
           />
-          <button onClick={() => setAuth(true)}>login</button>
+          <button>login</button>
         </form>
         <Link to="/register">Signup</Link>
       </main>

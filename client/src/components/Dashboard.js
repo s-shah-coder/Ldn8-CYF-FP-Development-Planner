@@ -10,9 +10,10 @@ function Dashboard({ setAuth }) {
         headers: { token: localStorage.token },
       });
 
-      const parseData = await res.json();
+      const parseRes = await res.json();
 
-      setName(parseData[0].username);
+      console.log(parseRes);
+      setName(parseRes.username);
     } catch (err) {
       console.error(err.message);
     }

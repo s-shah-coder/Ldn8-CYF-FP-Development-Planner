@@ -10,6 +10,7 @@ import Register from "./components/Register";
 import SignupConfirmation from "./components/SignupConfirmation";
 import NoMatch from "./components/NoMatch";
 import UserDetails from "./components/UserDetails";
+
 function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
 
@@ -20,7 +21,7 @@ function App() {
   async function isAuth() {
     try {
       const response = await fetch("http://localhost:4000/auth/is-verify", {
-        method: "POST",
+        method: "GET",
         headers: { token: localStorage.token },
       });
 
@@ -32,6 +33,7 @@ function App() {
       console.error(err.message);
     }
   }
+
   useEffect(() => {
     isAuth();
   }, []);
@@ -43,7 +45,6 @@ function App() {
           element={!isAuthenticated ? <Home /> : <Navigate to="/dashboard" />}
         />
         <Route
-          exact
           path="register"
           element={
             !isAuthenticated ? (
