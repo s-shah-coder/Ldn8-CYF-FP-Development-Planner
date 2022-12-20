@@ -9,8 +9,8 @@ const authorization = require("../middleware/authorization");
 router.post("/register", validInfo, async (req, res) => {
   try {
     // 1. destructure the req.body (name, email, password)
-    const { fname, lname, username, email, password } = req.body;
-    console.log(fname, lname, username, password, email);
+    const { fname, lname, username, email, password, role } = req.body;
+    console.log(fname, lname, username, password, email, role);
 
     // 2. check if user exists (if user exists throw error)
     const user = await pool.query("SELECT * FROM users WHERE user_email= $1", [
@@ -33,8 +33,8 @@ router.post("/register", validInfo, async (req, res) => {
     // 4. insert new user inside the database
 
     const newUser = await pool.query(
-      "INSERT INTO users (user_fname, user_lname, username, user_email, user_password) VALUES ($1, $2, $3, $4, $5) RETURNING *",
-      [fname, lname, username, email, bcryptPassword]
+      "INSERT INTO users (user_fname, user_lname, username, user_email, user_password, user_role) VALUES ($1, $2, $3, $4, $5, $6) RETURNING *",
+      [fname, lname, username, email, bcryptPassword, role]
     );
     // res.json(newUser.rows);
 

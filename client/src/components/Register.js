@@ -8,9 +8,10 @@ function Register({ setAuth }) {
     username: "",
     email: "",
     password: "",
+    role: "",
   });
 
-  const { fname, lname, username, email, password } = inputs;
+  const { fname, lname, username, email, password, role } = inputs;
 
   const onChange = (e) => {
     setInputs({ ...inputs, [e.target.name]: e.target.value });
@@ -19,7 +20,7 @@ function Register({ setAuth }) {
   const onSubmitForm = async (e) => {
     e.preventDefault();
     try {
-      const body = { fname, lname, username, email, password };
+      const body = { fname, lname, username, email, password, role };
       const response = await fetch("http://localhost:4000/auth/register", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -81,6 +82,26 @@ function Register({ setAuth }) {
             onChange={(e) => onChange(e)}
             required
           />
+
+          <fieldset>
+            <legend>Your CYF role:</legend>
+            <input
+              id="student"
+              type="radio"
+              name="role"
+              value="student"
+              onChange={(e) => onChange(e)}
+            ></input>
+            <label htmlFor="student">Student</label>
+            <input
+              id="mentor"
+              type="radio"
+              name="role"
+              value="mentor"
+              onChange={(e) => onChange(e)}
+            ></input>
+            <label htmlFor="mentor">Mentor</label>
+          </fieldset>
 
           <button>Submit</button>
         </form>
