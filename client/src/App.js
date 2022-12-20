@@ -10,6 +10,7 @@ import Register from "./components/Register";
 import SignupConfirmation from "./components/SignupConfirmation";
 import NoMatch from "./components/NoMatch";
 import UserDetails from "./components/UserDetails";
+import MentorDashboard from "./components/MentorDashboard";
 
 function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -81,6 +82,8 @@ function App() {
         <Route path="users" element={<Dashboard />}>
           <Route path=":userId" element={<UserDetails />} />
         </Route>
+        {/* this route isn't routed yet */}
+        <Route path="/mentor-dashboard" element={<MentorDashboard />} />
       </Routes>
     </>
   );
