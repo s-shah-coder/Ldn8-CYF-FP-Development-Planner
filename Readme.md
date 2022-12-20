@@ -1,7 +1,8 @@
 Instructions to run this project on your local machine:
+
 <ul>
     <li>Git clone project to local machine</li>
-    <LI>cd into this project</LI>
+    <li>cd into this project</li>
     <li>run the start script</li>
     <li>$ npm start</li>
 </ul>
